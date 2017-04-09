@@ -1,0 +1,36 @@
+---
+# EC2 Security group rules 
+# name, description, rules, rules_egress must be specified
+# 
+# Security group with name "default" will become the default group for the vpc 
+# "0" for a port value is ANY
+security_groups:
+  - name: default
+    description: Default rule inbound and outbound blocked
+    rules: []
+    rules_egress: []
+  - name: test group
+    description: Allow inbound and outbound from specific hosts and ports
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 1.2.3.4/32
+    rules_egress: 
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 1.2.3.4/32
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 1.2.3.4/32
+      - proto: udp
+        from_port: 53
+        to_port: 53
+        cidr_ip: 0.0.0.0/0 
+      # Any port
+      - proto: udp
+        from_port: 0
+        to_port: 0
+        cidr_ip: 1.2.3.4/32
